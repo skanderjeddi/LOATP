@@ -8,16 +8,11 @@ class Sommet {
     private:
         std::string etiquette;
         int kruskal;
-
+        
     public:
-        Sommet(std::string etiquette) : etiquette{etiquette} {}
-        Sommet(const Sommet& s) : etiquette{s.etiquette} {}
+        Sommet(std::string etiquette) : etiquette{etiquette} {};
+        Sommet(const Sommet& s) : etiquette{s.etiquette} {};
         std::string getEtiquette() const;
-        void* operator new(size_t size) {
-            void * p = ::operator new(size);
-            Collecte::instance().ajoutePointeur(p);
-            return p;
-        }
         friend std::ostream& operator<<(std::ostream& os, const Sommet& s);
 };
 
@@ -25,6 +20,7 @@ class Arete {
     private:
         const Sommet *sommet1, *sommet2;
         int poids;
+        GCArete gc;
     
     public:
         Arete(std::string etiquette1, std::string etiquette2, int poids);
@@ -34,11 +30,6 @@ class Arete {
         const Sommet* getSommet2() const;
         int getPoids() const;
         void setPoids(int p);
-        void* operator new(size_t size) {
-            void * p = ::operator new(size);
-            Collecte::instance().ajoutePointeur(p);
-            return p;
-        }
         friend std::ostream& operator<<(std::ostream& os, const Arete& a);
 };
 

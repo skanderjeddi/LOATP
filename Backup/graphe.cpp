@@ -17,10 +17,12 @@ const Sommet* Arete::getSommet2() const {
     return sommet2;
 }
 
-Arete::Arete(std::string etiquette1, std::string etiquette2, int poids) {
+Arete::Arete(std::string etiquette1, std::string etiquette2, int p) {
     sommet1 = new Sommet{etiquette1};
     sommet2 = new Sommet{etiquette2};
-    this->poids = poids;
+    poids = p;
+    collecte.ajoutePointeur(sommet1);
+    collecte.ajoutePointeur(sommet2);
 }
 
 int Arete::getPoids() const {

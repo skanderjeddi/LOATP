@@ -1,31 +1,23 @@
-#include "graphe.hpp"
 #include "common.hpp"
+#include "graph.hpp"
 
 bool DEBUG;
 
 int main() {
     DEBUG = true;
-    Graphe g1{ std::vector<Arete*>{}, std::vector<const Sommet*>{} };
-    Sommet* a = g1.ajouteSommet("A");
-    Sommet* b = g1.ajouteSommet("B");
-    Sommet c{"C"};
-    g1.ajouteSommet(&c);
-    Sommet e{"E"};
-    Sommet* ap = g1.ajouteSommet("A'");
-    Arete* a0 = g1.ajouteArete(a, b, 1);
-    g1.ajouteArete(a0);
-    g1.ajouteArete(a, b, 1);
-    g1.ajouteArete(a, &c, 2);
-    g1.ajouteArete(b, &e, 3);
-    Arete a1{"F", "G", 4};
-    Arete a2{a, &e, 5};
-    g1.ajouteArete(&a1);
-    g1.ajouteArete(&a2);
-    g1.symetrise();
-    std::cout << g1;
-    Graphe g2{ std::vector<Arete*>{}, std::vector<const Sommet*>{} };
-    g2.ajouteArete(&a1);
-    g2.ajouteArete(new Arete{ap, &e, -2});
-    std::cout << g2;
-    return 0;
+    Graph graph1{ std::vector<Edge*>{}, std::vector<Vertex*>{} };
+    Vertex* a0 = graph1.addVertex("A");
+    Vertex* b0 = graph1.addVertex("B");
+    Vertex c{"C"};
+    graph1.addVertex(&c);
+    Vertex e{"E"};
+    graph1.addEdge(a0, b0, 1);
+    graph1.addEdge(a0, b0, 2);
+    graph1.addEdge(a0, &c, -1);
+    graph1.addEdge(&c, &e, 3);
+    Edge e1{"F", "G", 4};  
+    Edge e2{a0, b0, 1};
+    graph1.addEdge(&e1);
+    graph1.addEdge(&e2);
+    std::cout << graph1;
 }
