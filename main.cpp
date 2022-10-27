@@ -12,6 +12,8 @@ int main() {
     g1.ajouteSommet(&c);
     Sommet e{"E"};
     Sommet* ap = g1.ajouteSommet("A'");
+    Arete* a0 = g1.ajouteArete(a, b, 1);
+    g1.ajouteArete(a0);
     g1.ajouteArete(a, b, 1);
     g1.ajouteArete(a, &c, 2);
     g1.ajouteArete(b, &e, 3);

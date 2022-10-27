@@ -48,17 +48,28 @@ Sommet* Graphe::ajouteSommet(std::string etiquette) {
 }
 
 Arete* Graphe::ajouteArete(Arete* a) {
-    aretes.push_back(a);
-    if (std::find(sommets.begin(), sommets.end(), a->getSommet1()) == sommets.end()) {
-        sommets.push_back(a->getSommet1());
-    }
-    if (std::find(sommets.begin(), sommets.end(), a->getSommet2()) == sommets.end()) {
-        sommets.push_back(a->getSommet2());
+    if (std::find(aretes.begin(), aretes.end(), a) == aretes.end()) {
+        aretes.push_back(a);
+        if (std::find(sommets.begin(), sommets.end(), a->getSommet1()) == sommets.end()) {
+            sommets.push_back(a->getSommet1());
+        }
+        if (std::find(sommets.begin(), sommets.end(), a->getSommet2()) == sommets.end()) {
+            sommets.push_back(a->getSommet2());
+        }
+    } else {
+        if (DEBUG) std::cout << "Arete deja presente" << std::endl;
     }
     return a;
 }
 
 Arete* Graphe::ajouteArete(const Sommet* s1, const Sommet* s2, int p) {
+    for (Arete* ac : aretes) {
+        if (ac->getSommet1() == s1 && ac->getSommet2() == s2 && ac->getPoids() == p) {
+            if (DEBUG) std::cout << "Arete deja presente" << std::endl;
+            std::cout << s1 << " " << s2 << " " << p << std::endl;
+            return ac;
+        }
+    }
     Arete* a = new Arete{s1, s2, p};
     aretes.push_back(a);
     if (std::find(sommets.begin(), sommets.end(), s1) == sommets.end()) {
@@ -72,8 +83,8 @@ Arete* Graphe::ajouteArete(const Sommet* s1, const Sommet* s2, int p) {
 
 Arete* Graphe::ajouteArete(std::string e1, std::string e2, int p) {
     Sommet* s1 = new Sommet{e1};
-    sommets.push_back(s1);
     Sommet* s2 = new Sommet{e2};
+    sommets.push_back(s1);
     sommets.push_back(s2);
     Arete* a = new Arete{s1, s2, p};
     aretes.push_back(a);
