@@ -70,14 +70,14 @@ Sommet* Graphe::ajouteSommet(Sommet* s) {
         }
     }
     sommets.push_back(s);
-    RamasseMiettes::suisPointeur(s);
+    RamasseMiettes::suisPointeur(s, false);
     return s;
 }
 
 Sommet* Graphe::ajouteSommet(std::string etiquette) {
     Sommet* s = new Sommet{etiquette};
     sommets.push_back(s);
-    RamasseMiettes::suisPointeur(s);
+    RamasseMiettes::suisPointeur(s, false);
     return s;
 }
 
@@ -88,7 +88,7 @@ Arete* Graphe::ajouteArete(Arete* a) {
         }
     }
     aretes.push_back(a);
-    RamasseMiettes::suisPointeur(a);
+    RamasseMiettes::suisPointeur(a, true);
     ajouteSommet(a->recupereSource());
     ajouteSommet(a->recupereDestination());
     return a;

@@ -5,11 +5,11 @@
 
 class RamasseMiettes {
     private:
-        static std::map<void*, int> pointeurs;
+        static std::map<void*, std::pair<int, bool>> pointeurs;
         RamasseMiettes() {}
 
     public:
-        static void suisPointeur(void* p);
+        static void suisPointeur(void* p, bool arete);
         static void affiche();
         static void supprimePointeur(void* p);
 };

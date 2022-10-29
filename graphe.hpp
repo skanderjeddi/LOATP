@@ -22,6 +22,7 @@ class Sommet {
 class Arete {
     private:
         Sommet *source, *destination;
+        Arete() {}
         Arete(std::string etiquette1, std::string etiquette2, int poids);
         Arete(Sommet* source, Sommet* destination, int poids) : source{source}, destination{destination}, poids{poids} {}
         Arete(const Arete& copie) : source{copie.source}, destination{copie.destination}, poids{copie.poids} {}
