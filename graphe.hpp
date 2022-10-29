@@ -54,6 +54,15 @@ class Graphe {
         std::vector<Sommet*> recupereSommets() const;
         std::vector<Arete*> recupereAretes() const;
         friend std::ostream& operator<<(std::ostream& os, const Graphe& g);
+        Graphe& operator=(const Graphe& copie) {
+            for (Arete* a : copie.aretes) {
+                ajouteArete(a);
+            }
+            for (Sommet* s : copie.sommets) {
+                ajouteSommet(s);
+            }
+            return *this;
+        }
         ~Graphe();
 };
 

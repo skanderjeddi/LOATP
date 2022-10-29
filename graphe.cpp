@@ -127,7 +127,6 @@ void Graphe::symetrise() {
 }
 
 std::ostream& operator<<(std::ostream& os, const Graphe& g) {
-    os << std::endl;
     os << "GRAPHE DE POIDS " << g.poids() << std::endl;
     os << "SOMMETS:" << std::endl;
     for (Sommet* v : g.sommets) {
@@ -137,7 +136,6 @@ std::ostream& operator<<(std::ostream& os, const Graphe& g) {
     for (Arete* e : g.aretes) {
         os << "\t" << *e << std::endl;
     }
-    os << std::endl;
     return os;
 }
 
@@ -145,7 +143,7 @@ Graphe::~Graphe(){
     for (Sommet* s : sommets) {
         RamasseMiettes::supprimePointeur(s);
     }
-    for (Arete* a : aretes){
+    for (Arete* a : aretes) {
         RamasseMiettes::supprimePointeur(a);
     }
 }
