@@ -54,7 +54,7 @@ class Graphe {
         void symetrise();
         std::vector<Sommet*> recupereSommets() const;
         std::vector<Arete*> recupereAretes() const;
-        std::vector<Arete*> kruskal() const;
+        Graphe* kruskal() const;
         friend std::ostream& operator<<(std::ostream& os, const Graphe& g);
         Graphe& operator=(const Graphe& copie) {
             for (Arete* a : copie.aretes) {

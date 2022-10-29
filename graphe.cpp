@@ -125,7 +125,8 @@ std::vector<Arete*> Graphe::recupereAretes() const {
     return aretes;
 }
 
-std::vector<Arete*> Graphe::kruskal() const {
+Graphe* Graphe::kruskal() const {
+    Graphe* acm = new Graphe{ std::vector<Arete*>{}, std::vector<Sommet*>{} };
     Graphe copie = Graphe{*this};
     copie.symetrise();
     int i = 1;
@@ -138,18 +139,20 @@ std::vector<Arete*> Graphe::kruskal() const {
         return a->recuperePoids() < b->recuperePoids();
     };
     std::sort(copie.aretes.begin(), copie.aretes.end(), comparator);
-    std::vector<Arete*> arbre;
     for (Arete* a : copie.aretes) {
-        if (a->source->kruskal != a->destination->kruskal) {
-            arbre.push_back(a);
+        std::cout << *a << std::endl;
+        Sommet* source = a->source;
+        Sommet* destination = a->destination;
+        if (source->kruskal != destination->kruskal) {
+            std::cout << "+" << *a << std::endl;
+            acm->ajouteArete(a);
             // RamasseMiettes::suisPointeur(a, true);
-            int kruskal = a->source->kruskal;
             for (Sommet* s : copie.sommets) {
-                if (s->kruskal == kruskal) s->kruskal = kruskal;
+                if (s->kruskal == source->kruskal || s->kruskal == destination->kruskal) s->kruskal = source->kruskal;
             }
         }
     }
-    return arbre;
+    return acm;
 }
 
 std::ostream& operator<<(std::ostream& os, const Graphe& g) {
