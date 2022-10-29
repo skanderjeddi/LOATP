@@ -51,12 +51,14 @@ Vertex* Graph::addVertex(Vertex* v) {
         }
     }
     vertices.push_back(v);
+    Gc::ajoutePointeur(v,'V');
     return v;
 }
 
 Vertex* Graph::addVertex(std::string label) {
     Vertex* v = new Vertex{label};
     vertices.push_back(v);
+    Gc::ajoutePointeur(v,'V');
     return v;
 }
 
@@ -67,6 +69,7 @@ Edge* Graph::addEdge(Edge* e) {
         }
     }
     edges.push_back(e);
+    Gc::ajoutePointeur(e,'E');
     addVertex(e->getSource());
     addVertex(e->getDestination());
     return e;
@@ -116,4 +119,14 @@ std::ostream& operator<<(std::ostream& os, const Graph& g) {
         os << *e << std::endl;
     }
     return os;
+}
+
+Graph::~Graph(){
+    for (Vertex* vertex : vertices) {
+        Gc::tryDeleteV(vertex);
+
+    }
+    for (Edge* edge : edges){
+        Gc::tryDeleteE(edge);
+    }
 }

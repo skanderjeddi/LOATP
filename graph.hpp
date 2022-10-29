@@ -2,7 +2,7 @@
 #define __GRAPH_HPP__
 
 #include "common.hpp"
-
+#include "gc.hpp"
 class Vertex {
     private:
         std::string label;
@@ -35,9 +35,9 @@ class Graph {
     private:
         std::vector<Vertex*> vertices;
         std::vector<Edge*> edges;
-
+     
     public:
-        Graph(std::vector<Edge*> edges, std::vector<Vertex*> vertices) : vertices{vertices}, edges{edges} {}
+        Graph( std::vector<Edge*> edges, std::vector<Vertex*> vertices) : vertices{vertices}, edges{edges}{}
         Graph(const Graph& g) : vertices{g.vertices}, edges{g.edges} {}
         Vertex* addVertex(Vertex* v);
         Vertex* addVertex(std::string label);
@@ -49,6 +49,7 @@ class Graph {
         std::vector<Vertex*> getVertices() const;
         std::vector<Edge*> getEdges() const;
         friend std::ostream& operator<<(std::ostream& os, const Graph& g);
+        virtual ~Graph();
 };
 
 #endif
