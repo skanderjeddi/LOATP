@@ -1,4 +1,5 @@
 #include "graph.hpp"
+#include "gc.hpp"
 
 std::string Vertex::getLabel() const {
     return label;
@@ -51,12 +52,14 @@ Vertex* Graph::addVertex(Vertex* v) {
         }
     }
     vertices.push_back(v);
+    GC::trackPointer(v);
     return v;
 }
 
 Vertex* Graph::addVertex(std::string label) {
     Vertex* v = new Vertex{label};
     vertices.push_back(v);
+    GC::trackPointer(v);
     return v;
 }
 
@@ -67,6 +70,7 @@ Edge* Graph::addEdge(Edge* e) {
         }
     }
     edges.push_back(e);
+    GC::trackPointer(e);
     addVertex(e->getSource());
     addVertex(e->getDestination());
     return e;
@@ -116,4 +120,13 @@ std::ostream& operator<<(std::ostream& os, const Graph& g) {
         os << *e << std::endl;
     }
     return os;
+}
+
+Graph::~Graph(){
+    for (Vertex* vertex : vertices) {
+        GC::deletePointer(vertex);
+    }
+    for (Edge* edge : edges){
+        GC::deletePointer(edge);
+    }
 }
