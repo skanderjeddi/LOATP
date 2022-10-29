@@ -1,12 +1,12 @@
 CC = g++ -Wall -std=c++11
 CCO = $(CC) -c $<
-OBJECTS = graph.o main.o gc.o
+OBJECTS = graphe.o main.o ramassemiettes.o
 all : $(OBJECTS)
 	$(CC) -o exe $(OBJECTS)
 	./exe
-gc.o : gc.cpp gc.hpp
+ramassemiettes.o : ramassemiettes.cpp ramassemiettes.hpp
 	$(CCO)
-graph.o : graph.cpp graph.hpp
+graphe.o : graphe.cpp graphe.hpp
 	$(CCO)
 main.o : main.cpp
 	$(CCO)
