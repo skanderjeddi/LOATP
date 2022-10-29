@@ -52,14 +52,14 @@ Vertex* Graph::addVertex(Vertex* v) {
         }
     }
     vertices.push_back(v);
-    Gc::ajoutePointeur(v,'V');
+    GC::trackPointer(v);
     return v;
 }
 
 Vertex* Graph::addVertex(std::string label) {
     Vertex* v = new Vertex{label};
     vertices.push_back(v);
-    Gc::ajoutePointeur(v,'V');
+    GC::trackPointer(v);
     return v;
 }
 
@@ -70,7 +70,7 @@ Edge* Graph::addEdge(Edge* e) {
         }
     }
     edges.push_back(e);
-    Gc::ajoutePointeur(e,'E');
+    GC::trackPointer(e);
     addVertex(e->getSource());
     addVertex(e->getDestination());
     return e;
@@ -124,10 +124,9 @@ std::ostream& operator<<(std::ostream& os, const Graph& g) {
 
 Graph::~Graph(){
     for (Vertex* vertex : vertices) {
-        Gc::tryDeleteV(vertex);
-
+        GC::deletePointer(vertex);
     }
     for (Edge* edge : edges){
-        Gc::tryDeleteE(edge);
+        GC::deletePointer(edge);
     }
 }

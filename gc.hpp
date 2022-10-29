@@ -3,15 +3,15 @@
 
 #include "common.hpp"
 
-class Gc {
+class GC {
+    private:
+        static std::map<void*, int> pointers;
+        GC() {}
+
     public:
-        static std::map<void*, int> Vpointeurs;
-        static std::map<void*, int>Epointeurs;
-    
-       static void ajoutePointeur(void* p, char c);
-       static void affiche();
-       static void tryDeleteE(void* p);
-        static void tryDeleteV(void* p);
+        static void trackPointer(void* p);
+        static void display();
+        static void deletePointer(void* p);
 };
 
 #endif
