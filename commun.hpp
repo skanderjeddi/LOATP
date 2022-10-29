@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <map>
 #include <tuple>
+#include <cassert>
 
 extern bool DEBUG;
 

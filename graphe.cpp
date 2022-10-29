@@ -75,18 +75,18 @@ Sommet* Graphe::ajouteSommet(std::string etiquette) {
 
 Arete* Graphe::ajouteArete(Arete* a) {
     for (Arete* arete : aretes) {
-        if (arete == a) return arete;
+        if (a->source == arete->source && a->destination == arete->destination && a->poids == arete->poids) return a;
     }
     aretes.push_back(a);
     RamasseMiettes::suisPointeur(a, true);
-    ajouteSommet(a->recupereSource());
-    ajouteSommet(a->recupereDestination());
+    ajouteSommet(a->source);
+    ajouteSommet(a->destination);
     return a;
 }
 
 Arete* Graphe::ajouteArete(Sommet* source, Sommet* destination, int p) {
     for (Arete* a : aretes) {
-        if (a->recupereSource() == source && a->recupereDestination() == destination && a->recuperePoids() == p) return a;
+        if (a->source == source && a->destination == destination && a->poids == p) return a;
     }
     Arete* a = new Arete{source, destination, p};
     ajouteArete(a);
@@ -108,10 +108,48 @@ int Graphe::poids() const {
 }
 
 void Graphe::symetrise() {
+    std::vector<Arete*> aretessym;
     for (Arete* a : aretes) {
-        Arete* asym = new Arete{a->recupereDestination(), a->recupereSource(), a->recuperePoids()};
+        aretessym.push_back(new Arete{a->destination, a->source, a->poids});
+    }
+    for (Arete* asym : aretessym) {
         ajouteArete(asym);
     }
+}
+
+std::vector<Sommet*> Graphe::recupereSommets() const {
+    return sommets;
+}
+
+std::vector<Arete*> Graphe::recupereAretes() const {
+    return aretes;
+}
+
+std::vector<Arete*> Graphe::kruskal() const {
+    Graphe copie = Graphe{*this};
+    copie.symetrise();
+    int i = 1;
+    for (Sommet *s : copie.sommets) {
+        s->kruskal = i;
+        std::cout << *s << ": " << s->kruskal << std::endl;
+        i++;
+    }
+    auto comparator = [](Arete* a, Arete* b) {
+        return a->recuperePoids() < b->recuperePoids();
+    };
+    std::sort(copie.aretes.begin(), copie.aretes.end(), comparator);
+    std::vector<Arete*> arbre;
+    for (Arete* a : copie.aretes) {
+        if (a->source->kruskal != a->destination->kruskal) {
+            arbre.push_back(a);
+            // RamasseMiettes::suisPointeur(a, true);
+            int kruskal = a->source->kruskal;
+            for (Sommet* s : copie.sommets) {
+                if (s->kruskal == kruskal) s->kruskal = kruskal;
+            }
+        }
+    }
+    return arbre;
 }
 
 std::ostream& operator<<(std::ostream& os, const Graphe& g) {
