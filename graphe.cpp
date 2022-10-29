@@ -6,11 +6,8 @@ std::string Sommet::recupereEtiquette() const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Sommet& s) {
-    if (DEBUG) {
-        os << s.etiquette << " [" << &s << "]";
-    } else {
-        os << s.etiquette;
-    }
+    if (DEBUG) os << s.etiquette << " [" << &s << "]";
+    else os << s.etiquette;
     return os;
 }
 
@@ -37,11 +34,8 @@ void Arete::changePoids(int p) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Arete& a) {
-    if (DEBUG) {
-        os << a.source->recupereEtiquette() << " -- " << a.poids << " -- " << a.destination->recupereEtiquette() << " [" << &a << "]";
-    } else {
-        os << *a.source << " -- " << a.poids << " -- " << *a.destination;
-    }
+    if (DEBUG) os << a.source->recupereEtiquette() << " -- " << a.poids << " -- " << a.destination->recupereEtiquette() << " [" << &a << "]";
+    else os << *a.source << " -- " << a.poids << " -- " << *a.destination;
     return os;
 }
 
@@ -65,9 +59,7 @@ Graphe::Graphe(const Graphe& copie) {
 
 Sommet* Graphe::ajouteSommet(Sommet* s) {
     for (Sommet* sommet : sommets) {
-        if (sommet == s) {
-            return sommet;
-        }
+        if (sommet == s) return sommet;
     }
     sommets.push_back(s);
     RamasseMiettes::suisPointeur(s, false);
@@ -83,9 +75,7 @@ Sommet* Graphe::ajouteSommet(std::string etiquette) {
 
 Arete* Graphe::ajouteArete(Arete* a) {
     for (Arete* arete : aretes) {
-        if (arete == a) {
-            return arete;
-        }
+        if (arete == a) return arete;
     }
     aretes.push_back(a);
     RamasseMiettes::suisPointeur(a, true);
@@ -96,9 +86,7 @@ Arete* Graphe::ajouteArete(Arete* a) {
 
 Arete* Graphe::ajouteArete(Sommet* source, Sommet* destination, int p) {
     for (Arete* a : aretes) {
-        if (a->recupereSource() == source && a->recupereDestination() == destination && a->recuperePoids() == p) {
-            return a;
-        }
+        if (a->recupereSource() == source && a->recupereDestination() == destination && a->recuperePoids() == p) return a;
     }
     Arete* a = new Arete{source, destination, p};
     ajouteArete(a);

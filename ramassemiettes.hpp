@@ -9,7 +9,7 @@ class RamasseMiettes {
         RamasseMiettes() {}
 
     public:
-        static void suisPointeur(void* p, bool arete);
+        static void suisPointeur(void* p, bool type);
         static void affiche();
         static void supprimePointeur(void* p);
 };
