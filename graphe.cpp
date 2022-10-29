@@ -132,7 +132,6 @@ Graphe* Graphe::kruskal() const {
     int i = 1;
     for (Sommet *s : copie.sommets) {
         s->kruskal = i;
-        std::cout << *s << ": " << s->kruskal << std::endl;
         i++;
     }
     auto comparator = [](Arete* a, Arete* b) {
@@ -140,15 +139,14 @@ Graphe* Graphe::kruskal() const {
     };
     std::sort(copie.aretes.begin(), copie.aretes.end(), comparator);
     for (Arete* a : copie.aretes) {
-        std::cout << *a << std::endl;
         Sommet* source = a->source;
         Sommet* destination = a->destination;
         if (source->kruskal != destination->kruskal) {
-            std::cout << "+" << *a << std::endl;
             acm->ajouteArete(a);
-            // RamasseMiettes::suisPointeur(a, true);
             for (Sommet* s : copie.sommets) {
-                if (s->kruskal == source->kruskal || s->kruskal == destination->kruskal) s->kruskal = source->kruskal;
+                if (s->kruskal == source->kruskal || s->kruskal == destination->kruskal) {
+                    s->kruskal = source->kruskal;
+                }
             }
         }
     }
