@@ -4,7 +4,7 @@
 bool DEBUG;
 
 int main() {
-    DEBUG = false;
+    DEBUG = true;
 
     Graphe graphe1{ std::vector<Arete*>{}, std::vector<Sommet*>{} };
     Sommet* a0 = graphe1.ajouteSommet("A");
@@ -30,7 +30,12 @@ int main() {
         std::cout << graphe2;
         if (DEBUG) RamasseMiettes::affiche();           
     }
+    Graphe graphe3 = Graphe{graphe1};
     graphe1.symetrise();
     std::cout << graphe1;
     if (DEBUG) RamasseMiettes::affiche();
+    graphe1.~Graphe();
+    std::cout << graphe3;
+    if (DEBUG) RamasseMiettes::affiche();
+    std::cout << std::endl;
 }

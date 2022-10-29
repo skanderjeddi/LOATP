@@ -42,8 +42,8 @@ class Graphe {
         std::vector<Arete*> aretes;
      
     public:
-        Graphe(std::vector<Arete*> aretes, std::vector<Sommet*> sommets) : sommets{sommets}, aretes{aretes}{}
-        Graphe(const Graphe& copie) : sommets{copie.sommets}, aretes{copie.aretes} {}
+        Graphe(std::vector<Arete*> aretes, std::vector<Sommet*> sommets); /** : sommets{sommets}, aretes{aretes}{} **/
+        Graphe(const Graphe& copie); /**  : sommets{copie.sommets}, aretes{copie.aretes} {} **/
         Sommet* ajouteSommet(Sommet* s);
         Sommet* ajouteSommet(std::string etiquette);
         Arete* ajouteArete(Arete* a);

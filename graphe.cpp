@@ -45,6 +45,24 @@ std::ostream& operator<<(std::ostream& os, const Arete& a) {
     return os;
 }
 
+Graphe::Graphe(std::vector<Arete*> aretes, std::vector<Sommet*> sommets) {
+    for (Arete* a : aretes) {
+        ajouteArete(a);
+    }
+    for (Sommet* s : sommets) {
+        ajouteSommet(s);
+    }
+}
+
+Graphe::Graphe(const Graphe& copie) {
+    for (Arete* a : copie.aretes) {
+        ajouteArete(a);
+    }
+    for (Sommet* s : copie.sommets) {
+        ajouteSommet(s);
+    }
+}
+
 Sommet* Graphe::ajouteSommet(Sommet* s) {
     for (Sommet* sommet : sommets) {
         if (sommet == s) {

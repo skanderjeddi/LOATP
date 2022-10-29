@@ -13,6 +13,7 @@ void RamasseMiettes::suisPointeur(void* p) {
 
 void RamasseMiettes::affiche(){
     for (auto it = RamasseMiettes::pointeurs.begin(); it != RamasseMiettes::pointeurs.end(); ++it) std::cout << "REFERENCES A " << it->first << ": " << it->second << std::endl;
+    std::cout << std::endl;
 }
 
 void RamasseMiettes::supprimePointeur(void* p){
@@ -24,5 +25,5 @@ void RamasseMiettes::supprimePointeur(void* p){
             delete(p);
             pointeurs.erase(p);
         }
-    }    
+    }
 }
