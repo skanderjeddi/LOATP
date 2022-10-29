@@ -1,3 +1,5 @@
+#ifndef __GC_HPP__
+#define __GC_HPP__
 
 #include "common.hpp"
 
@@ -11,3 +13,5 @@ class Gc {
        static void tryDeleteE(void* p);
         static void tryDeleteV(void* p);
 };
+
+#endif

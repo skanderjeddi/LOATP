@@ -1,10 +1,12 @@
+
+
 #include "gc.hpp"
+
 std::map<void*, int> Gc::Vpointeurs ={};
 std::map<void*, int> Gc::Epointeurs ={};
-  void Gc::ajoutePointeur(void* p, char c) {
-      
+
+void Gc::ajoutePointeur(void* p, char c) {      
     if (c=='V'){
-        
         auto it = Vpointeurs.find(p);
         if (it!=Vpointeurs.end()){
             Vpointeurs[p]+=1;
@@ -31,8 +33,6 @@ std::map<void*, int> Gc::Epointeurs ={};
 }
 void Gc::affiche(){
     for (auto it = Gc::Vpointeurs.begin(); it !=Gc::Vpointeurs.end();++it){
-
-    
     std::cout<< it->first<<","<< it->second << std::endl;
     }
      for (auto it = Gc::Epointeurs.begin(); it !=Gc::Epointeurs.end();++it){

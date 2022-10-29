@@ -1,4 +1,5 @@
 #include "graph.hpp"
+#include "gc.hpp"
 
 std::string Vertex::getLabel() const {
     return label;
