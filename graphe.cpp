@@ -102,12 +102,10 @@ int Graphe::poids() const {
 }
 
 void Graphe::symetrise() {
-    std::vector<Arete*> nouvellesAretes;
     for (Arete* a : aretes) {
-        nouvellesAretes.push_back(a);
-        nouvellesAretes.push_back(new Arete{a->recupereDestination(), a->recupereSource(), a->recuperePoids()});
+        Arete* asym = new Arete{a->recupereDestination(), a->recupereSource(), a->recuperePoids()};
+        ajouteArete(asym);
     }
-    aretes = nouvellesAretes;
 }
 
 std::ostream& operator<<(std::ostream& os, const Graphe& g) {
