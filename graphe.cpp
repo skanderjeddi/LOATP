@@ -62,14 +62,14 @@ Sommet* Graphe::ajouteSommet(Sommet* s) {
         if (sommet == s) return sommet;
     }
     sommets.push_back(s);
-    RamasseMiettes::suisPointeur(s, false);
+    RamasseMiettes::suisPointeur(s, TypePointeur::SOMMET);
     return s;
 }
 
 Sommet* Graphe::ajouteSommet(std::string etiquette) {
     Sommet* s = new Sommet{etiquette};
     sommets.push_back(s);
-    RamasseMiettes::suisPointeur(s, false);
+    RamasseMiettes::suisPointeur(s, TypePointeur::SOMMET);
     return s;
 }
 
@@ -78,7 +78,7 @@ Arete* Graphe::ajouteArete(Arete* a) {
         if (a->source == arete->source && a->destination == arete->destination && a->poids == arete->poids) return a;
     }
     aretes.push_back(a);
-    RamasseMiettes::suisPointeur(a, true);
+    RamasseMiettes::suisPointeur(a, TypePointeur::ARETE);
     ajouteSommet(a->source);
     ajouteSommet(a->destination);
     return a;
@@ -142,17 +142,15 @@ Graphe* Graphe::kruskal() const {
         Sommet* source = a->source;
         Sommet* destination = a->destination;
         if (source->kruskal != destination->kruskal) {
-            if (std::find(acm->sommets.begin(), acm->sommets.end(), destination)!=acm->sommets.end()){
+            if (std::find(acm->sommets.begin(), acm->sommets.end(), destination) != acm->sommets.end()) {
                 source->kruskal= destination->kruskal;
             }
-            else if (std::find(acm->sommets.begin(), acm->sommets.end(), source)!=acm->sommets.end()){
+            else if (std::find(acm->sommets.begin(), acm->sommets.end(), source) != acm->sommets.end()) {
                 destination->kruskal = source->kruskal;
             }
             acm->ajouteArete(a->source, a->destination, a->poids);
             for (Sommet* s : copie.sommets) {
-                
                 if (s->kruskal == source->kruskal || s->kruskal == destination->kruskal) {
-                    
                     s->kruskal = source->kruskal;
                 }
             }
@@ -163,11 +161,11 @@ Graphe* Graphe::kruskal() const {
 
 std::ostream& operator<<(std::ostream& os, const Graphe& g) {
     os << "GRAPHE DE POIDS " << g.poids() << std::endl;
-    os << "SOMMETS:" << std::endl;
+    os << "SOMMETS" << std::endl;
     for (Sommet* v : g.sommets) {
         os << "\t" << *v << std::endl;
     }
-    os << "ARETES:" << std::endl;
+    os << "ARETES" << std::endl;
     for (Arete* e : g.aretes) {
         os << "\t" << *e << std::endl;
     }

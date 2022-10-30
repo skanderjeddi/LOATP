@@ -3,15 +3,20 @@
 
 #include "commun.hpp"
 
+enum TypePointeur {
+    SOMMET, ARETE
+};
+
 class RamasseMiettes {
     private:
-        static std::map<void*, std::pair<int, bool>> pointeurs;
+        static std::map<void*, std::pair<int, TypePointeur>> pointeurs;
         RamasseMiettes() {}
 
     public:
-        static void suisPointeur(void* p, bool type);
+        static void suisPointeur(void* p, TypePointeur type);
         static void affiche();
         static void supprimePointeur(void* p);
+        ~RamasseMiettes();
 };
 
 #endif
