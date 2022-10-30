@@ -161,11 +161,11 @@ Graphe* Graphe::kruskal() const {
 
 std::ostream& operator<<(std::ostream& os, const Graphe& g) {
     os << "GRAPHE DE POIDS " << g.poids() << std::endl;
-    os << "SOMMETS" << std::endl;
+    os << "SOMMETS\n";
     for (Sommet* v : g.sommets) {
         os << "\t" << *v << std::endl;
     }
-    os << "ARETES" << std::endl;
+    os << "ARETES\n";
     for (Arete* e : g.aretes) {
         os << "\t" << *e << std::endl;
     }
