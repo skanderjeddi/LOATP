@@ -142,9 +142,17 @@ Graphe* Graphe::kruskal() const {
         Sommet* source = a->source;
         Sommet* destination = a->destination;
         if (source->kruskal != destination->kruskal) {
-            acm->ajouteArete(a);
+            if (std::find(acm->sommets.begin(), acm->sommets.end(), destination)!=acm->sommets.end()){
+                source->kruskal= destination->kruskal;
+            }
+            else if (std::find(acm->sommets.begin(), acm->sommets.end(), source)!=acm->sommets.end()){
+                destination->kruskal = source->kruskal;
+            }
+            acm->ajouteArete(a->source, a->destination, a->poids);
             for (Sommet* s : copie.sommets) {
+                
                 if (s->kruskal == source->kruskal || s->kruskal == destination->kruskal) {
+                    
                     s->kruskal = source->kruskal;
                 }
             }
